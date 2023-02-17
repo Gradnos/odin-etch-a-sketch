@@ -2,6 +2,7 @@ const canvas = document.querySelector(".canvas");
 const r = document.querySelector(":root");
 let penColor = "black"; 
 let penState = "pen";
+let pensize = 3;
 
 let width = 700;
 let height = 700;
@@ -40,6 +41,8 @@ for(let i=0; i<x; i++){
         newDiv.classList.add("pixel");
         canvas.appendChild(newDiv);
         newDiv.draggable = false;
+        newDiv.setAttribute("data-x", i);
+        newDiv.setAttribute("data-y", j);
         newDiv.addEventListener("mouseenter", (e) => {
             if(mouseDown){
                 draw(e.target);
@@ -52,23 +55,47 @@ for(let i=0; i<x; i++){
     }
 }
 
-function draw(elemnet){
+function draw(element){
+  surroundingPixels = getSurroundingPixels(element);
   switch(penState){
     case "pen":
-     // console.log(elemnet);
-      elemnet.style["background-color"]= penColor;
+      surroundingPixels.forEach(element => {
+        element.style["background-color"]= penColor;
+      });
       return;
     case "rainbow":
-     // elemnet.style["background-color"]=`rgb(${rng255()},${rng255()},${rng255()})`;
-      elemnet.style["background-color"]=rainbowCol();
+     // element.style["background-color"]=`rgb(${rng255()},${rng255()},${rng255()})`;
+     surroundingPixels.forEach(element => {
+       element.style["background-color"]=rainbowCol();
+    });
 
       return;
     case "ereaser":
-      elemnet.style["background-color"]= null;
+      surroundingPixels.forEach(element => {
+        element.style["background-color"]= null;
+     });
+      return;
   }
 
 }
 
+
+function getSurroundingPixels(element){
+let x = +element.getAttribute("data-x");
+let y = +element.getAttribute("data-y");
+let elements = [];
+let offset = (pensize-1)/2;
+for(let i=-offset; i<=offset; i++){
+  for(let j=-offset; j<=offset; j++){
+  if(pixels[x+i] === undefined) continue;
+  let pixel = pixels[x+i][y+j];
+  if(pixel === null || pixel === undefined) continue;
+  elements.push(pixel);
+  }
+}
+console.log(elements);
+return elements;
+}
 
 function rng255(){
   return Math.floor(Math.random() * 255);
