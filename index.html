@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="javascript.js" defer></script>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;300;500;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@100;300;500;900&display=swap"
+        rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sketch</title>
 </head>
+
 <body>
     <header>
         <h1>Etch A Sketch</h1>
-        <a href="https://github.com/Gradnos" target="_blank" >gradnos</a>
+        <a href="https://github.com/Gradnos" target="_blank">gradnos</a>
     </header>
     <div class="content">
         <div class="left">
-
-        </div>
-        <div class="middle">
-            <div class="canvas">
-
+            <div class="penStates">
+            <button data-penstate="pen" class="penState">🖋️ pen</button>
+            <button data-penstate="rainbow" class="penState">🌈 rainbow</button>
+            <button data-penstate="ereaser" class="penState">🧼 ereaser</button>
             </div>
+        </div>
+        <div class="canvas">
+
         </div>
         <div class="right">
         </div>
     </div>
 </body>
+
 </html>
