@@ -1,0 +1,75 @@
+:root{
+    --background : #3D1766;
+    --primary: #9d36f1;
+    --accent: #FF0032;
+    --accent-dark: #CD0404;
+    --canvasbg: #FFFFFF;
+    --pixelx: 10px;
+    --pixely: 10px;
+}
+
+*{
+margin: 0px;
+padding: 0px;
+box-sizing: border-box;
+font-family: 'MuseoModerno', cursive;
+color: white;
+}
+
+.pixel{
+    width: 70px;
+    height: 70px;
+    color: #9d36f1;
+}
+
+.left,
+.right{
+    flex : 1;
+}
+
+.middle{
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex : 2;
+}
+
+.canvas{
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: content-box;
+    width: 700px;
+    height: 700px;
+    background-color: var(--canvasbg);
+    border: 10px solid var(--primary);
+}
+
+html{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+body{
+    background-color: #3D1766;
+    flex : 1;
+    display : flex;
+    flex-direction: column;
+
+}
+.content{
+    flex : 1;
+    display: flex;
+    align-items: stretch;
+}
+
+header{
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary);
+    margin: 0 300px 30px 300px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
