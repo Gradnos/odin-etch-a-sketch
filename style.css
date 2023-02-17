@@ -17,9 +17,10 @@ color: white;
 }
 
 .pixel{
-    width: 70px;
-    height: 70px;
-    color: #9d36f1;
+    width: var(--pixelx);
+    height: var(--pixely);
+    background-color: var(--canvasbg);
+    user-select: none;
 }
 
 .left,
