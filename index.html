@@ -22,15 +22,22 @@
     <div class="content">
         <div class="left">
             <div class="penStates">
+            <label class="colorLabel"><input type="color" class="colorInput">Color</label>
+            <label class="bgLabel"><input type="color" class="bgInput">Bg Color</label>
             <button data-penstate="pen" class="penState">🖋️ pen</button>
-            <button data-penstate="rainbow" class="penState">🌈 rainbow</button>
+            <button data-penstate="rainbow1" class="penState">🌈 rainbow 1</button>
+            <button data-penstate="rainbow2" class="penState">🌈 rainbow 2</button>
             <button data-penstate="ereaser" class="penState">🧼 ereaser</button>
+            <button class="clear" >🧹 Clear</button>
             </div>
         </div>
         <div class="canvas">
 
         </div>
         <div class="right">
+            <input type="range" orient="vertical" min="1" max="100" value="50" class="xy">
+            <input type="range" orient="vertical" min="1" max="50" value="1" class="penSize">
+            
         </div>
     </div>
 </body>

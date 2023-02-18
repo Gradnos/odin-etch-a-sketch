@@ -2,13 +2,15 @@ const canvas = document.querySelector(".canvas");
 const r = document.querySelector(":root");
 let penColor = "black"; 
 let penState = "pen";
-let pensize = 10;
+let pensize = 2;
 
 let width = 700;
 let height = 700;
-let x=50;
-let y=50;
-let pixels = Array.from(Array(x), () => new Array(y));
+let x=100;
+let y=100;
+let pixels;
+
+createPixels(width,height,x,y);
 
 let mouseDown = 0;
 document.body.onmousedown = function() { 
@@ -30,44 +32,88 @@ penStateButtons.forEach(button => {
   });
 }); 
 
+const clearBtn = document.querySelector(".clear");
+clearBtn.addEventListener("click", (e) =>{
+  clearPixels(width,height,x,y);
+});
 
-r.style.setProperty("--pixelx", `${width/x}px`);
-r.style.setProperty("--pixely", `${height/y}px`);
-divy=width/y;
-for(let i=0; i<x; i++){
-    for(let j=0; j<y; j++){
-        let newDiv = document.createElement("div");
-        newDiv.classList.add("pixel");
-        canvas.appendChild(newDiv);
-        newDiv.draggable = false;
-        newDiv.setAttribute("data-x", i);
-        newDiv.setAttribute("data-y", j);
-        newDiv.addEventListener("mouseenter", (e) => {
-            if(mouseDown){
-                draw(e.target);
-            }
-        });
-        newDiv.addEventListener("mousedown", (e) => {
-                draw(e.target);
-        });
-        pixels[i][j]=newDiv;
-    }
+
+const colorInput = document.querySelector(".colorInput");
+const colorLabel = document.querySelector(".colorLabel");
+colorInput.addEventListener("input", (e) => {
+  let col = e.target.value;
+  penColor = col;
+  r.style.setProperty("--penCol", col);
+});
+
+
+const bgInput = document.querySelector(".bgInput");
+const bgLabel = document.querySelector(".bgLabel");
+bgInput.addEventListener("input", (e) => {
+  let col = e.target.value;
+  penColor = col;
+  r.style.setProperty("--canvasbg", col);
+});
+
+
+
+function createPixels(width,height, x,y){
+  pixels = Array.from(Array(x), () => new Array(y));
+  r.style.setProperty("--pixelx", `${width/x}px`);
+  r.style.setProperty("--pixely", `${height/y}px`);
+  for(let i=0; i<x; i++){
+      for(let j=0; j<y; j++){
+          let newDiv = document.createElement("div");
+          newDiv.classList.add("pixel");
+          canvas.appendChild(newDiv);
+          newDiv.draggable = false;
+          newDiv.setAttribute("data-x", i);
+          newDiv.setAttribute("data-y", j);
+          newDiv.addEventListener("mouseenter", (e) => {
+              if(mouseDown){
+                  draw(e.target);
+              }
+          });
+          newDiv.addEventListener("mousedown", (e) => {
+                  draw(e.target);
+          });
+          pixels[i][j]=newDiv;
+      }
+  }
 }
+
+
+function clearPixels(widt,height, x, y){
+  pixels.forEach(pxs => {
+    pxs.forEach(px => {
+      px.remove();
+    });
+  });
+
+  createPixels(widt,height,x,y);
+}
+
 
 function draw(element){
   surroundingPixels = getSurroundingPixels(element);
+  let col = rainbowCol();
   switch(penState){
     case "pen":
       surroundingPixels.forEach(element => {
         element.style["background-color"]= penColor;
       });
       return;
-    case "rainbow":
-     // element.style["background-color"]=`rgb(${rng255()},${rng255()},${rng255()})`;
+    case "rainbow1":
      surroundingPixels.forEach(element => {
-       element.style["background-color"]=rainbowCol();
+       element.style["background-color"]=col;
     });
 
+      return;
+    case "rainbow2":
+        surroundingPixels.forEach(element => {
+          element.style["background-color"]=rainbowCol();
+       });
+   
       return;
     case "ereaser":
       surroundingPixels.forEach(element => {
