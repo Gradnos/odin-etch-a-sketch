@@ -2,15 +2,16 @@ const canvas = document.querySelector(".canvas");
 const r = document.querySelector(":root");
 let penColor = "black"; 
 let penState = "pen";
-let pensize = 2;
+let pensize = 1;
 
 let width = 700;
 let height = 700;
-let x=100;
-let y=100;
+let x=50;
+let y=50;
 let pixels;
 
 createPixels(width,height,x,y);
+create2Darr(10);
 
 let mouseDown = 0;
 document.body.onmousedown = function() { 
@@ -38,6 +39,28 @@ clearBtn.addEventListener("click", (e) =>{
 });
 
 
+const xySlider = document.querySelector(".xy");
+const xyText = document.querySelector(".xyText");
+xySlider.addEventListener("mouseup", (e) =>{
+  val = xySlider.value;
+  clearPixels(width , height, val, val);
+});
+xySlider.addEventListener("input", (e) =>{
+  val = xySlider.value;
+  xyText.innerText = `${val}x${val}`;
+});
+
+
+const penSlider = document.querySelector(".penSize");
+const penSizeText = document.querySelector(".penSizeText");
+penSlider.addEventListener("input", (e) =>{
+  val = penSlider.value;
+  penSizeText.innerText = `${val}px`;
+  pensize=val;
+});
+
+
+
 const colorInput = document.querySelector(".colorInput");
 const colorLabel = document.querySelector(".colorLabel");
 colorInput.addEventListener("input", (e) => {
@@ -58,7 +81,8 @@ bgInput.addEventListener("input", (e) => {
 
 
 function createPixels(width,height, x,y){
-  pixels = Array.from(Array(x), () => new Array(y));
+  let k = 0;
+  pixels = create2Darr(x,y);
   r.style.setProperty("--pixelx", `${width/x}px`);
   r.style.setProperty("--pixely", `${height/y}px`);
   for(let i=0; i<x; i++){
@@ -77,6 +101,7 @@ function createPixels(width,height, x,y){
           newDiv.addEventListener("mousedown", (e) => {
                   draw(e.target);
           });
+          k++;
           pixels[i][j]=newDiv;
       }
   }
@@ -89,7 +114,6 @@ function clearPixels(widt,height, x, y){
       px.remove();
     });
   });
-
   createPixels(widt,height,x,y);
 }
 
@@ -184,3 +208,13 @@ function rainbowCol(){
 function isEven(num){
   return (num%2 === 0);
 }
+
+function create2Darr(rows, cols){
+  let arr = []
+
+  for(let i = 0; i < rows; i++){
+    arr[i]= [];
+  }
+
+  return arr;
+} 
