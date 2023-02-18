@@ -2,7 +2,7 @@ const canvas = document.querySelector(".canvas");
 const r = document.querySelector(":root");
 let penColor = "black"; 
 let penState = "pen";
-let pensize = 3;
+let pensize = 10;
 
 let width = 700;
 let height = 700;
@@ -19,7 +19,6 @@ document.body.onmouseup = function() {
 }
 
 const penStateButtons = document.querySelectorAll(".penState");
-console.log(penStateButtons);
 penStateButtons.forEach(button => {
   button.addEventListener("click", (e) =>{
     penStateButtons.forEach(button =>{
@@ -84,16 +83,20 @@ function getSurroundingPixels(element){
 let x = +element.getAttribute("data-x");
 let y = +element.getAttribute("data-y");
 let elements = [];
-let offset = (pensize-1)/2;
-for(let i=-offset; i<=offset; i++){
-  for(let j=-offset; j<=offset; j++){
+let a = 0;
+
+// makes it work for even and odd sizes
+if(isEven(pensize)) a = 1;
+let offset = Math.floor(pensize/2);
+
+for(let i=-offset; i<=offset - a; i++){
+  for(let j=-offset; j<=offset - a; j++){
   if(pixels[x+i] === undefined) continue;
   let pixel = pixels[x+i][y+j];
   if(pixel === null || pixel === undefined) continue;
   elements.push(pixel);
   }
 }
-console.log(elements);
 return elements;
 }
 
@@ -104,7 +107,6 @@ function rng255(){
 let rainbowCounter = 0;
 function rainbowCol(){
   rainbowCounter
-  console.log(rainbowCounter);
   let col;
   rainbowCounter++;
   if(rainbowCounter>6) rainbowCounter = 0;
@@ -131,4 +133,8 @@ function rainbowCol(){
         col = "#4B0082";
       return col;
   }
+}
+
+function isEven(num){
+  return (num%2 === 0);
 }
