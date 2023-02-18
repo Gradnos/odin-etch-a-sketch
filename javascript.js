@@ -43,7 +43,9 @@ const xySlider = document.querySelector(".xy");
 const xyText = document.querySelector(".xyText");
 xySlider.addEventListener("mouseup", (e) =>{
   val = xySlider.value;
-  clearPixels(width , height, val, val);
+  x=val;
+  y=val;
+  clearPixels(width , height, x, y);
 });
 xySlider.addEventListener("input", (e) =>{
   val = xySlider.value;
